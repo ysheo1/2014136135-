@@ -1,5 +1,11 @@
 <?php
     # TODO: MySQL 데이터베이스 연결 및 레코드 가져오기!
+$connect = mysql_connect("localhost","ysh","qlalfqjsgh1234"); // DB 연결
+mysql_select_db("ysh_db", $connect);
+
+$sql = "select * from tableboard_shop where name = $_POST[num]";
+$result = mysql_query($sql,$connect);
+$row = mysql_fetch_array($result);
 ?>
 
 <!-- 출처 : https://colorlib.com/wp/template/responsive-table-v1/ -->
@@ -47,7 +53,22 @@
                     <tbody>
                     <?php
                         # TODO : 아래 표시되는 내용을, MySQL 테이블에 있는 레코드로 대체하기!
-                        # Note : column6 에 해당하는 Total 은 Price 값과 Quantity 값의 곱으로 표시!
+                    while ( $row = mysql_fetch_array($result))
+                    {
+                        $price = $row[price];
+                        $quantity = $row[$quantity];
+                        $total = $price * $quantity;
+                        echo "<tr onclick= \"location.href = ('board_from.php?num=$row[num]')\">";
+                        echo ("<td class=\"column1\">$row[date]</td>");
+                        echo ("<td class=\"column2\">$row[order_id]</td>");
+                        echo ("<td class=\"column3\">$row[name]</td>");
+                        echo ("<td class=\"column4\">\$$price</td>");
+                        echo ("<td class=\"column5\">$quantity</td>");
+                        echo ("<td class=\"column6\">\$$total</td>");
+                        echo ("</tr>");
+                    }
+
+                    mysql_close();
                     ?>
                     <tr onclick="location.href = ('board_form.php?num=0')">
                         <td class="column1">2017-09-29 01:22</td>
@@ -77,7 +98,7 @@
                         <td class="column1">2017-09-25 23:06</td>
                         <td class="column2">200392</td>
                         <td class="column3">USB 3.0 Cable</td>
-                        <td class="column4">$10.00</td>
+                            <td class="column4">$10.00</td>
                         <td class="column5">3</td>
                         <td class="column6">$30.00</td>
                     </tr>

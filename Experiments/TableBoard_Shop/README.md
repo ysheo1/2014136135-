@@ -26,21 +26,81 @@
 
 [여기에 테이블 생성 시, 사용한 Query 를 작성하세요.]
 Note: 
-- table 이름은 tableboard_shop 으로 생성
-- 기본키는 num 으로, 그 외의 속성은 board_form.php 의 input 태그 name 에 표시된 속성 이름으로 생성
-- 각 속성의 type 은 자유롭게 설정 (단, 입력되는 값의 타입과 일치해야 함)
-    - ex) price -> int
-    - ex) name -> char or varchar
+- table 이름은 tableboard_shop 으로 생성 
+
+CREATE TABLE tableboard_shop(
+    num int not null auto_increment,
+    date date.
+    order_id int,
+    name char(30),
+    price double,
+    quantity int,
+    primary key(num)
+    );
     
 ## index.php 수정
-[여기에 index.php 를 어떻게 수정했는지, 설명을 작성하세요.]
+- MySQL 데이터베이스 연동
+  - mysql_connect
+  - mysql_select_db
+
+- mysql_query() 함수를 이용해서, MySQL 에 쿼리 스트링 전송
+  - mysql_query
+   
+- mysql_fetch_array() 함수를 이용해서, 전달받은 레코드를 가져옴
+ 
+- 여러 정보들을 레코드에 대체하기 위해서 while문을 이용한 mysql_fetch_array() 함수를 이용
+  - 이를 이용하여  
+
+## board_form.php 수정
+- MySQL 데이터베이스 연동
+  - mysql_connect
+  - mysql_select_db
+
+- mysql_query() 함수를 이용해서, MySQL 에 쿼리 스트링 전송
+  - mysql_query
+   
+- mysql_fetch_array() 함수를 이용해서, 전달받은 레코드를 가져옴
+
+- update form 인 경우, form 에 정보 표시
+  - echo 문을 사용해 불러오기 위한 특정한 값들에 알맞는 row를 호출
+  - ex) 68번째 줄 php 구문시작 "echo $row[date]" 
 
 ## function
 ### insert.php 수정
-[여기에 insert.php 를 어떻게 수정했는지, 설명을 작성하세요.]
+- MYSQL 데이터베이스 연동
+  - mysql_connect
+  - mysql_select_db
+  
+- mysql_query() 함수를 이용해서, MySQL 에 쿼리 스트링 전송
+  - mysql_query
+ 
+- mysql_fetch_array() 함수를 이용해서, 전달받은 레코드를 가져옴
+ 
+- mysql구문인 insert문을 이용하여 레코드를 생성
+  - num값(자동적으로 생성)을 받아서 그 안에 지정된 데이터를 입력
 
 ### update.php 수정
-[여기에 update.php 를 어떻게 수정했는지, 설명을 작성하세요.]
+- MYSQL 데이터베이스 연동
+  - mysql_connect
+  - mysql_select_db
+  
+- mysql_query() 함수를 이용해서, MySQL 에 쿼리 스트링 전송
+  - mysql_query
+ 
+- mysql_fetch_array() 함수를 이용해서, 전달받은 레코드를 가져옴
+ 
+- mysql구문인 update문을 이용하여 레코드를 생성
+  - num값(자동적으로 생성)을 받아서 그 레코드의 데이터를 호출
+  - 바꾸고 싶은 값을 바꾸면 된다.
 
 ### delete.php 수정
-[여기에 delete.php 를 어떻게 수정했는지, 설명을 작성하세요.]
+- MYSQL 데이터베이스 연동
+  - mysql_connect
+  - mysql_select_db
+  
+- mysql_query() 함수를 이용해서, MySQL 에 쿼리 스트링 전송
+  - mysql_query
+ 
+- mysql_fetch_array() 함수를 이용해서, 전달받은 레코드를 가져옴
+ 
+- mysql구문인 delete문을 이용하여 레코드를 특정 레코드를 지정하여 삭제

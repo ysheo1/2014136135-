@@ -1,7 +1,13 @@
 <?php
 #TODO: update form 인 경우, form 에 정보 표시
+
 if(isset($_GET[num])) {
     #TODO: MySQL 테이블에서, num에 해당하는 레코드 가져오기
+    $connect = mysql_connect("localhost","ysh","qlalfqjsgh1234"); // DB 연결
+    mysql_select_db("ysh_db", $connect);
+
+    $sql = "select * from tableboard_shop where name = $_GET[num]";
+    $result = mysql_query($sql,$connect);
 }
 ?>
 
@@ -37,7 +43,7 @@ if(isset($_GET[num])) {
 			<a href="index.php" style="border: 1px; padding: 10px; background: #36304a; display: block; width: 100px; text-align: center; border-radius: 10px; margin-bottom: 5px;"> Back </a>
             <?php
                 if(isset($_GET[num])) {
-                    echo "<form method=\"POST\" action=\"function/update.php\">";
+                    echo "<form method=\"POST\" action=\"function/update.php?num=$_GET[num]\">";
                 } else {
                     echo "<form method=\"POST\" action=\"function/insert.php\">";
                 }
@@ -59,11 +65,11 @@ if(isset($_GET[num])) {
                             <?php
                             if(isset($_GET[num])) { //update 의 경우!
                                 ?>
-                                <td class="column1"> <input name="date" type="text" value="<? #TODO: 정보 표시 ?>" /> </td>
-                                <td class="column2"> <input name="order_id" type="number" value="<? #TODO: 정보 표시 ?>" /> </td>
-                                <td class="column3"> <input name="name" type="text" value="<?  #TODO: 정보 표시 ?>" /> </td>
-                                <td class="column4"> <input name="price" type="number" placeholder="$" style="text-align: right;" value="<? #TODO: 정보 표시 ?>" /> </td>
-                                <td class="column5"> <input name="quantity" type="number" value="<? #TODO: 정보 표시 ?>" style="text-align: right;" /> </td>
+                                <td class="column1"> <input name="date" type="text" value="<? echo $row[date] ?>" /> </td>
+                                <td class="column2"> <input name="order_id" type="number" value="<? echo $row[order_id] ?>" /> </td>
+                                <td class="column3"> <input name="name" type="text" value="<?  echo $row[name] ?>" /> </td>
+                                <td class="column4"> <input name="price" type="number" placeholder="$" style="text-align: right;" value="<? echo $row[price] ?>" /> </td>
+                                <td class="column5"> <input name="quantity" type="number" value="<? echo $row[quantity] ?>" style="text-align: right;" /> </td>
                                 <td class="column6"> $<span id="total"> <? #TODO: 정보 표시 ?> </span> </td>
                                 <?php
                             } else {
